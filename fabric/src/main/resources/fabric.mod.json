@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "id": "template",
+  "version": "${version}",
+  "name": "Template Mod",
+  "description": "A descriptive explanation on what this mod does.",
+  "authors": [
+    "Ultreon Team"
+  ],
+  "contributors": [
+    "Qboi",
+    "JPT79",
+    "Laz"
+  ],
+  "contact": {
+    "website": "https://example.com",
+    "repo": "https://github.com/Ultreon/kotlin-architectury-template",
+    "issues": "https://github.com/Ultreon/kotlin-architectury-template/issues"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/template/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "com.example.template.fabric.TemplateFabric"
+      }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.example.template.fabric.TemplateFabricClient"
+      }
+    ],
+    "server": [
+      {
+        "adapter": "kotlin",
+        "value": "com.example.template.fabric.TemplateFabricServer"
+      }
+    ]
+  },
+  "mixins": [
+    "template.mixins.json",
+    "template-common.mixins.json"
+  ],
+  "recommends": {
+    "modmenu": ">=5.0.0"
+  },
+  "depends": {
+    "fabric-language-kotlin": ">=1.9.0+kotlin.3.8.0",
+    "fabricloader": ">=0.14.12",
+    "minecraft": ">=1.19.3"
+  }
+}

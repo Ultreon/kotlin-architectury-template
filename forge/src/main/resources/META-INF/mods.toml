@@ -1,0 +1,45 @@
+modLoader = "kotlinforforge" # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+loaderVersion = "[3.8,)" # This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license = "All Rights Reserved"
+issueTrackerURL = "https://github.com/Ultreon/kotlin-architectury-template/issues" # A URL to refer people to when problems occur with this mod
+
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+modId = "template" # The modid of the mod
+version = "${version}" # The version number of the mod
+displayName = "Dilithium" # A display name for the mod
+updateJSONURL="http://example.com/path/to/update.json" #optional # A URL to query for updates for this mod. See the JSON update specification <here>
+displayURL = "https://example.com/" # A URL for the "homepage" for this mod, displayed in the mod UI
+logoFile = "icon.png" # A file name (in the root of the mod JAR) containing a logo for display
+credits="" # A text field displayed in the mod UI
+authors="Me" # A text field displayed in the mod UI
+displayTest="MATCH_VERSION" # Display Test controls the display for your mod in the server connection screen
+
+# The description text for the mod (multi line!) (#mandatory)
+description = '''
+A descriptive explanation on what this mod does.
+'''
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.template]] #optional
+modId = "forge" # the modid of the dependency
+mandatory = true # Does this dependency have to exist - if not, ordering below must be specified
+versionRange = "[44,)" #mandatory - The version range of the dependency
+ordering = "NONE" # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+side = "BOTH" # Side this dependency is applied on - BOTH, CLIENT or SERVER
+
+# Here's another dependency
+[[dependencies.template]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.3,1.20)" # This version range declares a minimum of the current minecraft version up to but not including the next major version
+ordering = "NONE"
+side = "BOTH"
+
+# Here's another dependency
+[[dependencies.template]]
+modId = "kotlinforforge"
+mandatory = true
+versionRange = "[0,)" # This version range declares a minimum of the current minecraft version up to but not including the next major version
+ordering = "NONE"
+side = "BOTH"

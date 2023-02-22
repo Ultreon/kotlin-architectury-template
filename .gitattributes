@@ -1,0 +1,77 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.ps1 text
+*.svg text
+*.iml text
+*.xml text
+*.html text
+*.htm text
+
+# Declare files that will always have LF line endings on checkout.
+*.c text eof=lf
+*.h text eof=lf
+*.py text eof=lf
+*.snbt text eof=lf
+*.json text eof=lf
+*.yml text eof=lf
+*.yaml text eof=lf
+*.toml text eof=lf
+*.cfg text eof=lf
+*.txt text eof=lf
+*.java text eof=lf
+*.mcmeta text eof=lf
+*.properties text eof=lf
+*.gradle text eof=lf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.bat text eof=crlf
+*.cmd text eof=crlf
+*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.jiff binary
+*.tiff binary
+*.tga binary
+*.bmp binary
+*.ico binary
+*.icns binary
+*.pdn binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.mp4 binary
+*.avi binary
+*.mov binary
+*.mkv binary
+*.jar binary
+*.jgz binary
+*.class binary
+*.pyc binary
+*.pyd binary
+*.pyz binary
+*.nbt binary
+*.dat binary
+*.bin binary
+*.rom binary
+*.img binary
+*.iso binary
+*.ubo binary
+*.nzt binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.xz binary
+*.yz binary
+*.lzma binary
+*.7z binary
+*.obj binary
+*.fbx binary
+*.dae binary
+*.efi binary
+*.elf binary

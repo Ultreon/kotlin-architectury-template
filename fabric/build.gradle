@@ -1,0 +1,136 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+// Import proguard task from the classpath.
+
+//file:noinspection GroovyAssignabilityCheck
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+kotlin {
+    jvmToolchain 17
+}
+
+compileKotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
+classes {
+    finalizedBy("copyKotlinClasses")
+}
+
+tasks.register("copyKotlinClasses") {
+    doLast {
+        copy {
+            from fileTree("$projectDir/build/classes/kotlin/main")
+            into file("$projectDir/build/classes/java/main")
+        }
+    }
+}
+
+jar.mustRunAfter("copyKotlinClasses")
+
+jar {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+}
+
+compileKotlin {
+    outputs.dir("$projectDir/build/classes/java/main")
+}
+
+repositories {
+    maven { url = "https://cursemaven.com" }
+    maven { url "https://maven.terraformersmc.com/releases" }
+    mavenCentral()
+}
+
+configurations {
+    common
+    shadowCommon // Don't u0se shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    // Remove the next line if you don't want to depend on the API
+    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+
+    modApi "com.github.Ultreon.ultreonlib:ultreon-lib-fabric:$ultreonlib_version"
+
+    // Kotlin Libraries & mods
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.9.0+kotlin.1.8.0")
+
+    // Mod dependencies
+    modImplementation "curse.maven:forgeapiportfabric-547434:3946675"
+    modImplementation 'com.electronwill.night-config:core:3.6.5'
+    modImplementation 'com.electronwill.night-config:toml:3.6.5'
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    // Essential mods.
+    modImplementation "com.terraformersmc:modmenu:5.0.2", {
+        exclude module: "fabric-api"
+    }
+
+//    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.568"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    classifier "dev-shadow"
+}
+
+remapJar {
+    //noinspection GrDeprecatedAPIUsage
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    classifier null
+}
+
+jar {
+    classifier "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenFabric(MavenPublication) {
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+    }
+}
