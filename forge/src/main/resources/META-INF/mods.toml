@@ -7,7 +7,7 @@ issueTrackerURL = "https://github.com/Ultreon/kotlin-architectury-template/issue
 [[mods]] #mandatory
 modId = "template" # The modid of the mod
 version = "${version}" # The version number of the mod
-displayName = "Dilithium" # A display name for the mod
+displayName = "Template Mod" # A display name for the mod
 updateJSONURL="http://example.com/path/to/update.json" #optional # A URL to query for updates for this mod. See the JSON update specification <here>
 displayURL = "https://example.com/" # A URL for the "homepage" for this mod, displayed in the mod UI
 logoFile = "icon.png" # A file name (in the root of the mod JAR) containing a logo for display
