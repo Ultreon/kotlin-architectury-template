@@ -70,7 +70,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:1.9.0+kotlin.1.8.0")
 
     // Mod dependencies
-    modImplementation "curse.maven:forgeapiportfabric-547434:3946675"
+    modImplementation "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:5.0.3"
     modImplementation 'com.electronwill.night-config:core:3.6.5'
     modImplementation 'com.electronwill.night-config:toml:3.6.5'
 
